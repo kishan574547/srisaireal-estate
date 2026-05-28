@@ -26,8 +26,8 @@ export default function Login() {
     e.preventDefault();
 
     if (
-      formData.email === "admin@gmail.com" &&
-      formData.password === "admin123"
+      formData.email === "ntarunreddy80@gmail.com" &&
+      formData.password === "731980"
     ) {
 
       localStorage.setItem(

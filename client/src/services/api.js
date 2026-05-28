@@ -1,14 +1,14 @@
-import axios from "axios";
+import axios from 'axios';
 
 const API = axios.create({
-  baseURL: "https://srisaireal-estate.onrender.com/api",
+  baseURL: 'http://localhost:5000/api',
 });
 
-export const getProperties = (params) =>
-  API.get("/properties", { params });
+export const getProperties = () =>
+  API.get('/properties');
 
 export const createProperty = (data) =>
-  API.post("/properties", data);
+  API.post('/properties', data);
 
 export const updateProperty = (id, data) =>
   API.put(`/properties/${id}`, data);
