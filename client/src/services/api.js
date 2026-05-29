@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const API = axios.create({
- baseURL: 'https://srisai-real-estate-backend.onrender.com/api',
+  baseURL:
+    'https://srisaireal-estate.onrender.com/api',
 });
 
 export const getProperties = () =>
