@@ -33,7 +33,42 @@ router.get('/', async (req, res) => {
 
 });
 
+// GET SINGLE PROPERTY
+router.get('/:id', async (req, res) => {
 
+  try {
+
+    const property =
+      await Property.findById(
+        req.params.id
+      );
+
+    if (!property) {
+
+      return res.status(404).json({
+        success: false,
+        message: 'Property not found',
+      });
+
+    }
+
+    res.json({
+      success: true,
+      property,
+    });
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+
+  }
+
+});
 // CREATE PROPERTY
 router.post(
   '/',

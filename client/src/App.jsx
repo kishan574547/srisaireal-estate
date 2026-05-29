@@ -2,15 +2,14 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Admin from './pages/Admin';
+import PropertyDetails from './pages/PropertyDetails';
 
-// Protected Route Component
 function ProtectedRoute({ children }) {
   const token = localStorage.getItem('srisai_token');
   if (!token) return <Navigate to="/login" replace />;
   return children;
 }
 
-// Redirect if already logged in
 function PublicRoute({ children }) {
   const token = localStorage.getItem('srisai_token');
   if (token) return <Navigate to="/admin" replace />;
@@ -21,7 +20,9 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
+
         <Route path="/" element={<Home />} />
+
         <Route
           path="/login"
           element={
@@ -30,6 +31,7 @@ export default function App() {
             </PublicRoute>
           }
         />
+
         <Route
           path="/admin"
           element={
@@ -38,7 +40,17 @@ export default function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="*" element={<Navigate to="/" replace />} />
+
+        <Route
+          path="/property/:id"
+          element={<PropertyDetails />}
+        />
+
+        <Route
+          path="*"
+          element={<Navigate to="/" replace />}
+        />
+
       </Routes>
     </BrowserRouter>
   );

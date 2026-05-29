@@ -528,13 +528,20 @@ const S = {
     background: 'rgba(201,168,76,0.15)', color: '#E8C97A', fontSize: 13, fontWeight: 600,
   },
 
-  main: { flex: 1, padding: '32px', overflowY: 'auto', maxWidth: 'calc(100vw - 240px)' },
-  header: { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 28 },
+main: {
+  flex:1,
+  padding:'24px',
+  overflowY:'auto'
+},  header: { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 28 },
   pageTitle: { fontFamily: "'Playfair Display', serif", fontSize: 28, color: '#0D1B2A' },
   pageSubtitle: { color: '#718096', fontSize: 14, marginTop: 4 },
 
-  statsBar: { display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, marginBottom: 28 },
-  statCard: {
+statsBar: {
+  display:'grid',
+  gridTemplateColumns:'repeat(auto-fit,minmax(180px,1fr))',
+  gap:16,
+  marginBottom:28
+},  statCard: {
     background: '#fff', borderRadius: 14, padding: '20px', textAlign: 'center',
     boxShadow: '0 2px 8px rgba(0,0,0,0.06)', border: '1px solid rgba(0,0,0,0.04)',
   },
@@ -573,9 +580,17 @@ const S = {
   form: { display: 'flex', flexDirection: 'column', gap: 24 },
   formSection: { background: '#FAFAF8', borderRadius: 14, padding: 24, border: '1px solid #EDE5D8' },
   sectionTitle: { fontSize: 16, fontWeight: 700, color: '#0D1B2A', marginBottom: 20, display: 'flex', alignItems: 'center', gap: 8 },
-  formGrid2: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 },
-  formGrid3: { display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 16, marginBottom: 16 },
-  field: { display: 'flex', flexDirection: 'column', gap: 6 },
+formGrid2: {
+  display:'grid',
+  gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))',
+  gap:16,
+  marginBottom:16
+},  formGrid3: {
+  display:'grid',
+  gridTemplateColumns:'repeat(auto-fit,minmax(220px,1fr))',
+  gap:16,
+  marginBottom:16},
+ field: { display: 'flex', flexDirection: 'column', gap: 6 },
   label: { fontSize: 13, fontWeight: 600, color: '#4A5568' },
   input: {
     padding: '11px 14px', border: '2px solid #E2D5C3', borderRadius: 10,

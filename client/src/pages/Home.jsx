@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getProperties } from '../services/api';
-
+import { useNavigate } from "react-router-dom";
 /* ── helpers ────────────────────────────────────────────────── */
 function formatPrice(p) {
   if (p >= 10000000) return `₹${(p / 10000000).toFixed(2)} Cr`;
@@ -10,6 +10,7 @@ function formatPrice(p) {
 
 /* ── Property Card ──────────────────────────────────────────── */
 function PropertyCard({ p }) {
+  const navigate = useNavigate();
   const [idx, setIdx] = useState(0);
   return (
     <div style={C.card}>
@@ -50,8 +51,12 @@ function PropertyCard({ p }) {
           {p.bathrooms > 0 && <span style={C.chip}>🚿 {p.bathrooms} Bath</span>}
           {p.amenities?.slice(0,2).map(a => <span key={a} style={C.chip}>{a}</span>)}
         </div>
-        <button style={C.enqBtn}>Enquire Now →</button>
-      </div>
+<button
+  style={C.enqBtn}
+  onClick={() => navigate(`/property/${p._id}`)}
+>
+  Enquire Now →
+</button>      </div>
     </div>
   );
 }
@@ -83,8 +88,9 @@ const C = {
 
 /* ── Main Page ──────────────────────────────────────────────── */
 export default function Home() {
+  const navigate = useNavigate();
   const [properties, setProperties] = useState([]);
-  const [loading,    setLoading]    = useState(true);
+  const [loading, setLoading] = useState(true);
   const [filter,     setFilter]     = useState({ type:'', status:'' });
   const [scrolled,   setScrolled]   = useState(false);
 
@@ -455,23 +461,36 @@ const H = {
   clearBtn:  { padding:'11px 20px', borderRadius:10, border:'2px solid #E74C3C', background:'transparent', color:'#E74C3C', fontSize:14, fontWeight:600, cursor:'pointer' },
 
   /* About */
-  aboutGrid:  { display:'grid', gridTemplateColumns:'1fr 1fr', gap:64, alignItems:'center' },
-  aboutP:     { color:'rgba(255,255,255,.65)', fontSize:15, lineHeight:1.85, marginTop:16, marginBottom:28 },
-  feats:      { display:'grid', gridTemplateColumns:'1fr 1fr', gap:12 },
+aboutGrid: {
+  display:'grid',
+  gridTemplateColumns:'repeat(auto-fit,minmax(300px,1fr))',
+  gap:64,
+  alignItems:'center'
+},  feats:      { display:'grid', gridTemplateColumns:'1fr 1fr', gap:12 },
   feat:       { color:'rgba(255,255,255,.8)', fontSize:14, fontWeight:500 },
   aboutCards: { display:'grid', gridTemplateColumns:'1fr 1fr', gap:16 },
   aboutCard:  { background:'rgba(255,255,255,.05)', border:'1px solid rgba(255,255,255,.1)', borderRadius:16, padding:20, display:'flex', flexDirection:'column', gap:10 },
 
   /* Contact */
-  contactGrid: { display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:24, marginBottom:48 },
-  cCard:   { background:'#F8F4EE', borderRadius:16, padding:'32px 24px', textAlign:'center', border:'1px solid #EDE5D8' },
+contactGrid: {
+  display:'grid',
+  gridTemplateColumns:'repeat(auto-fit,minmax(250px,1fr))',
+  gap:24,
+  marginBottom:48
+},  cCard:   { background:'#F8F4EE', borderRadius:16, padding:'32px 24px', textAlign:'center', border:'1px solid #EDE5D8' },
   cLabel:  { fontFamily:"'Playfair Display',serif", fontSize:18, color:'#0D1B2A', marginBottom:8 },
   cVal:    { color:'#C9A84C', fontWeight:600, fontSize:15, marginBottom:4 },
   cSub:    { color:'#718096', fontSize:13 },
 
   /* Owner box */
-  ownerBox:     { background:'linear-gradient(135deg,#0D1B2A 0%,#1A2E42 100%)', borderRadius:20, overflow:'hidden', display:'grid', gridTemplateColumns:'280px 1fr', boxShadow:'0 20px 60px rgba(13,27,42,.25)' },
-  ownerLeft:    { background:'linear-gradient(180deg,rgba(201,168,76,.18),rgba(201,168,76,.06))', padding:'40px 32px', display:'flex', flexDirection:'column', alignItems:'center', textAlign:'center', borderRight:'1px solid rgba(201,168,76,.2)' },
+ownerBox: {
+  background:'linear-gradient(135deg,#0D1B2A 0%,#1A2E42 100%)',
+  borderRadius:20,
+  overflow:'hidden',
+  display:'grid',
+  gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))',
+  boxShadow:'0 20px 60px rgba(13,27,42,.25)'
+},  ownerLeft:    { background:'linear-gradient(180deg,rgba(201,168,76,.18),rgba(201,168,76,.06))', padding:'40px 32px', display:'flex', flexDirection:'column', alignItems:'center', textAlign:'center', borderRight:'1px solid rgba(201,168,76,.2)' },
   ownerBadge:   { fontSize:11, fontWeight:700, color:'#C9A84C', letterSpacing:1, textTransform:'uppercase', marginBottom:20 },
   ownerAvatar:  { width:80, height:80, borderRadius:'50%', background:'linear-gradient(135deg,#C9A84C,#A07830)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:32, fontWeight:800, color:'#fff', fontFamily:"'Playfair Display',serif", marginBottom:16, boxShadow:'0 8px 24px rgba(201,168,76,.4)' },
   ownerName:    { fontFamily:"'Playfair Display',serif", fontSize:22, fontWeight:700, color:'#fff', marginBottom:6 },
@@ -485,8 +504,12 @@ const H = {
 
   /* Footer */
   footer:       { background:'#0D1B2A', padding:'60px 0 28px' },
-  footerGrid:   { display:'grid', gridTemplateColumns:'2fr 1.4fr 1.2fr', gap:56, marginBottom:48 },
-  fBrand:       { display:'flex', alignItems:'center', gap:14, marginBottom:16 },
+footerGrid: {
+  display:'grid',
+  gridTemplateColumns:'repeat(auto-fit,minmax(250px,1fr))',
+  gap:56,
+  marginBottom:48
+},  fBrand:       { display:'flex', alignItems:'center', gap:14, marginBottom:16 },
   fBrandName:   { fontFamily:"'Playfair Display',serif", fontSize:21, color:'#E8C97A', fontWeight:700 },
   fBrandSub:    { fontSize:11, color:'rgba(255,255,255,.3)', marginTop:2 },
   fDesc:        { color:'rgba(255,255,255,.45)', fontSize:13, lineHeight:1.8, marginBottom:20 },
