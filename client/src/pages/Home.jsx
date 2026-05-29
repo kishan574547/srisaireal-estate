@@ -421,16 +421,45 @@ const H = {
   /* Navbar */
   nav:       { position:'fixed', top:0, left:0, right:0, zIndex:200, transition:'all .3s', padding:'14px 0' },
   navOn:     { background:'rgba(13,27,42,.97)', backdropFilter:'blur(12px)', boxShadow:'0 4px 20px rgba(0,0,0,.3)', padding:'10px 0' },
-  navW:      { maxWidth:1280, margin:'0 auto', padding:'0 28px', display:'flex', alignItems:'center', justifyContent:'flex-end', position:'relative' },
-  navCenter: { position:'absolute', left:'50%', transform:'translateX(-50%)' },
+navW: {
+  maxWidth:1280,
+  margin:'0 auto',
+  padding:'0 20px',
+  display:'flex',
+  alignItems:'center',
+  justifyContent:'space-between',
+  position:'relative',
+  flexWrap:'wrap',
+  gap:12
+},  navCenter: {
+  display:'flex',
+  alignItems:'center'
+},
   logoLink:  { display:'flex', alignItems:'center', gap:10, textDecoration:'none' },
   logoEmoji: { fontSize:28 },
-  logoName:  { fontFamily:"'Playfair Display',serif", fontSize:19, fontWeight:700, color:'#fff', whiteSpace:'nowrap' },
-  logoSub:   { fontSize:10, color:'#C9A84C', letterSpacing:.8, fontWeight:600 },
-  navRight:  { display:'flex', alignItems:'center', gap:28 },
-  nl:        { color:'rgba(255,255,255,.82)', fontSize:14, fontWeight:500, textDecoration:'none' },
-  adminBtn:  { padding:'8px 20px', borderRadius:8, background:'#C9A84C', color:'#0D1B2A', fontWeight:700, fontSize:14, textDecoration:'none' },
-
+logoName: {
+  fontFamily:"Playfair Display, serif",
+  fontSize:'clamp(16px,4vw,19px)',
+  fontWeight:700,
+  color:'#fff'
+},  logoSub:   { fontSize:10, color:'#C9A84C', letterSpacing:.8, fontWeight:600 },
+navRight: {
+  display:'flex',
+  alignItems:'center',
+  gap:12,
+  flexWrap:'wrap',
+  justifyContent:'center'
+},  nl:        { color:'rgba(255,255,255,.82)', fontSize:14, fontWeight:500, textDecoration:'none' },
+adminBtn: {
+  padding:'8px 14px',
+  borderRadius:8,
+  background:'#C9A84C',
+  color:'#0D1B2A',
+  fontWeight:700,
+  fontSize:14,
+  textDecoration:'none',
+  whiteSpace:'nowrap'
+},
   /* Hero */
   hero:     { minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center', background:'linear-gradient(135deg,#0D1B2A 0%,#1A2E42 45%,#243B55 100%)', position:'relative', padding:'120px 24px 60px', textAlign:'center' },
   heroGlow: { position:'absolute', inset:0, background:'radial-gradient(ellipse at 30% 55%,rgba(201,168,76,.09) 0%,transparent 60%)', pointerEvents:'none' },
