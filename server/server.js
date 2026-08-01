@@ -8,6 +8,8 @@ require('dotenv').config();
 
 const propertyRoutes =
   require('./routes/propertyRoutes');
+const authRoutes =
+  require('./routes/authRoutes');
 
 const app = express();
 
@@ -25,6 +27,11 @@ app.use(
 
 
 // ROUTES
+app.use(
+  '/api/auth',
+  authRoutes
+);
+
 app.use(
   '/api/properties',
   propertyRoutes

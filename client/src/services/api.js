@@ -4,6 +4,9 @@ const API = axios.create({
   baseURL: 'https://srisaireal-estate.onrender.com/api',
 });
 
+export const loginAdmin = (credentials) =>
+  API.post('/auth/login', credentials);
+
 export const getProperties = (params = {}) =>
   API.get('/properties', { params });
 

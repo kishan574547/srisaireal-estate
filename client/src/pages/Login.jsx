@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { loginAdmin } from "../services/api";
+
 export default function Login() {
 
   const navigate = useNavigate();
@@ -11,6 +13,7 @@ export default function Login() {
   });
 
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
 
@@ -21,26 +24,24 @@ export default function Login() {
 
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
 
     e.preventDefault();
+    setError("");
+    setLoading(true);
 
-    if (
-      formData.email === "ntarunreddy80@gmail.com" &&
-      formData.password === "731980"
-    ) {
-
-      localStorage.setItem(
-        "srisai_token",
-        "admin_logged_in"
-      );
-
-      navigate("/admin");
-
-    } else {
-
-      setError("Invalid Email or Password");
-
+    try {
+      const response = await loginAdmin(formData);
+      if (response.data && response.data.token) {
+        localStorage.setItem("srisai_token", response.data.token);
+        navigate("/admin");
+      } else {
+        setError(response.data?.message || "Invalid Email or Password");
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || "Invalid Email or Password");
+    } finally {
+      setLoading(false);
     }
 
   };
@@ -144,17 +145,18 @@ export default function Login() {
 
           <button
             type="submit"
+            disabled={loading}
             style={{
               padding: "14px",
-              background: "#C9A84C",
+              background: loading ? "#d4b86a" : "#C9A84C",
               color: "#0D1B2A",
               border: "none",
               borderRadius: "10px",
               fontWeight: "700",
-              cursor: "pointer",
+              cursor: loading ? "not-allowed" : "pointer",
             }}
           >
-            Login
+            {loading ? "Logging in..." : "Login"}
           </button>
 
         </form>
