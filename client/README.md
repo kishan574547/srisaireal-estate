@@ -67,8 +67,8 @@ npm run dev
 ### Step 3 – Access
 - **Home Page**: http://localhost:5173
 - **Admin Login**: http://localhost:5173/login
-  - Email: `admin@gmail.com`
-  - Password: `admin123`
+  - Email: `ntarunreddy80@gmail.com`
+  - Password: `731980`
 - **Admin Dashboard**: http://localhost:5173/admin
 
 ---
