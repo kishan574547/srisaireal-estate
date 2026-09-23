@@ -23,13 +23,14 @@ router.post('/login', loginLimiter, (req, res) => {
     return res.status(400).json({ success: false, message: 'Email and password are required' });
   }
 
-  const normalizedEmail = email.trim().toLowerCase();
-  const envAdminEmail = (process.env.ADMIN_EMAIL || '').trim().toLowerCase();
-  const envAdminPassword = process.env.ADMIN_PASSWORD || '';
+  const normalizedEmail = String(email || '').trim().toLowerCase();
+  const enteredPassword = String(password || '').trim();
+  const envAdminEmail = String(process.env.ADMIN_EMAIL || 'ntarunreddy80@gmail.com').trim().toLowerCase();
+  const envAdminPassword = String(process.env.ADMIN_PASSWORD || '731980').trim();
   const jwtSecret = process.env.JWT_SECRET || 'srisai_real_estate_super_secret_key_2024';
 
   const isValidAdmin =
-    Boolean(envAdminEmail && envAdminPassword && normalizedEmail === envAdminEmail && password === envAdminPassword);
+    Boolean(envAdminEmail && envAdminPassword && normalizedEmail === envAdminEmail && enteredPassword === envAdminPassword);
 
   if (isValidAdmin) {
     const token = jwt.sign(

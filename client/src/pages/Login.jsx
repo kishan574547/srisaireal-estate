@@ -31,7 +31,10 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const response = await loginAdmin(formData);
+      const response = await loginAdmin({
+        email: formData.email.trim(),
+        password: formData.password.trim(),
+      });
       if (response.data && response.data.token) {
         localStorage.setItem("srisai_token", response.data.token);
         navigate("/admin");
