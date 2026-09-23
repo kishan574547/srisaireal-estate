@@ -26,14 +26,15 @@ router.post('/login', loginLimiter, (req, res) => {
   const normalizedEmail = email.trim().toLowerCase();
   const envAdminEmail = (process.env.ADMIN_EMAIL || '').trim().toLowerCase();
   const envAdminPassword = process.env.ADMIN_PASSWORD || '';
+  const jwtSecret = process.env.JWT_SECRET || 'srisai_real_estate_super_secret_key_2024';
 
-  if (
-    normalizedEmail === envAdminEmail &&
-    password === envAdminPassword
-  ) {
+  const isValidAdmin =
+    Boolean(envAdminEmail && envAdminPassword && normalizedEmail === envAdminEmail && password === envAdminPassword);
+
+  if (isValidAdmin) {
     const token = jwt.sign(
       { email: normalizedEmail, role: 'admin' },
-      process.env.JWT_SECRET,
+      jwtSecret,
       { expiresIn: '7d' }
     );
 
@@ -56,8 +57,10 @@ router.get('/verify', (req, res) => {
   }
 
   const token = authHeader.split(' ')[1];
+  const jwtSecret = process.env.JWT_SECRET || 'srisai_real_estate_super_secret_key_2024';
+
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, jwtSecret);
     if (!decoded || decoded.role !== 'admin') {
       return res.status(403).json({ success: false, message: 'Forbidden: Admin access required' });
     }
